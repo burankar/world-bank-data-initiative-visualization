@@ -17,4 +17,32 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 '''
+'''
+This code is pulled and adopted from the newcoder.io dataviz tutorial. 
+I will update this attribution later in the project.
+'''
 
+import csv
+MY_FILE = 'WDI_csv/WDI_Data.csv'
+
+
+def parse(raw_file, delimiter):
+	"""Parses the raw WDI_Data.csv to a JSON-LINE object."""
+	
+	#open CSV file
+	opened_file = open(raw_file)
+
+	#read CSV file
+	csv_data = csv.reader(opened_file, delimiter=delimiter)
+
+	#build a data structure to return parsed_data
+	parsed_data = []
+	fields = csv_data.next()
+
+	for row in csv_data:
+		parsed_data.append(dict(zip(fields, row)))
+
+	#close CSV file
+	opened_file.close()
+	
+	return parsed_data
